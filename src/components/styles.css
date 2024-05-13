@@ -1,0 +1,217 @@
+
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f5f5f5;
+  padding: 1rem;
+}
+
+.logo {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-item {
+  margin-right: 1.5rem;
+  cursor: pointer;
+  color: #666;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.menu-item.active,
+.menu-item:hover {
+  color: #db2c2c;
+}
+
+.body-container {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 60px)
+}
+
+.slider {
+ display:block;
+ align-content: center;
+ background-color: #f5f5f5;
+ cursor: col-resize;
+}
+
+.json-text-area-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0px;
+  position: relative;
+}
+
+.json-text-area {
+  display: flex;
+  width: 100%;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 22px;
+  position: relative;
+}
+
+.json-textarea {
+  padding: 0;
+  padding-left: 10px;
+  flex: 1;
+  outline: none;
+  resize: none;
+  background-color: transparent;
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 22px;
+  border: 1px solid #b9b5b0;
+}
+
+.data-table-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0px;
+  position: relative; /* Добавлено */
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+  border: 1px solid #ddd;
+  position: relative; /* Добавлено */
+}
+
+.data-table thead {
+  position: sticky;
+  top: 0;
+  background-color: #f2f2f2;
+  z-index: 1; /* Добавлено */
+}
+
+.data-table th,
+.data-table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.data-table th {
+  font-weight: bold;
+}
+
+.data-table td:first-child {
+  font-weight: bold;
+}
+
+.data-table td:last-child {
+  white-space: pre-wrap;
+}
+
+.data-table .value-options {
+  color: #666;
+}
+
+.data-table .value-options-empty {
+  color: #999;
+}
+.line-numbers {
+  border: 1px solid #b9b5b0;
+  border-right: none;
+  display: flex;
+  flex-direction: column;
+  background-color: #f0f0f0;
+  padding: 10px;
+  color: #999;
+  width: '100%';
+  padding: 0;
+}
+
+.line-numbers div {
+  padding-right: 10px;
+  padding-left: 10px;
+  cursor: pointer;
+}
+
+.selected {
+  background-color: #a8a49f;
+  color: #585757;
+}
+
+.invalid {
+  background-color: #fcd9d2;
+  border: 1px solid #f44336;
+}
+
+.error-message {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background-color: #f44336;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  opacity: 0;
+  animation: fade-out 3s ease-in-out;
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.format-button {
+
+
+
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background-color: rgba(255, 130, 130, 0.5);
+  color: #333;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Material Symbols Outlined';
+  font-size: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.format-button:hover {
+  background-color: rgb(251, 255, 32);
+}
+
+.format-button:disabled {
+  cursor: pointer;
+  opacity: 0.5;
+}
