@@ -61,6 +61,13 @@
   position: relative;
 }
 
+.json-text-area-menu{
+position: sticky;
+top: 0;
+background-color: #f2f2f2;
+z-index: 1; /* Добавлено */
+}
+
 .json-text-area {
   display: flex;
   width: 100%;
