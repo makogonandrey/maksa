@@ -1,24 +1,58 @@
 import React, { Component } from "react";
 import "./styles.css";
 import { generateJsonSchema } from "../functions/jsonSchemaGenerator";
+import { removeTagsFromText } from "../functions/jsonSchemaGenerator";
 
 class JsonTextArea extends Component {
   state = {
     value: ``,
     isValid: true,
     selectedLine: null,
-    jsonSchema: []
+    jsonSchema: [],
   };
 
   handleChange = (event) => {
     const value = event.target.value;
+    if (value === "") {
+      this.setState({
+        value: ``,
+        isValid: true,
+        selectedLine: null,
+        jsonSchema: [],
+      });
+    } else {
+      try {
+        const jsonData = JSON.parse(value);
+        const jsonSchema = generateJsonSchema(jsonData);
+        this.setState({ value, isValid: true, jsonSchema }); // Обновляем состояние с JSON-схемой
+        this.props.onJsonDataChange(jsonSchema); // Передаем валидные данные в родительский компонент
+      } catch (error) {
+        this.setState({ value, isValid: false, jsonSchema: [] });
+        this.props.onJsonDataChange([]);
+      }
+    }
+  };
+
+  handleResetText = () => {
+    this.setState({
+      value: ``,
+      isValid: true,
+      selectedLine: null,
+      jsonSchema: [],
+    });
+    this.props.onJsonDataChange([]);
+  };
+
+  handleRemoveTagsFromText = () => {
+    const updatedValue = removeTagsFromText(this.state.value);
+    this.setState({ value: updatedValue });
     try {
-      const jsonData = JSON.parse(value);
+      const jsonData = JSON.parse(updatedValue);
       const jsonSchema = generateJsonSchema(jsonData);
-      this.setState({ value, isValid: true, jsonSchema }); // Обновляем состояние с JSON-схемой
+      this.setState({ value: updatedValue, isValid: true, jsonSchema }); // Обновляем состояние с JSON-схемой
       this.props.onJsonDataChange(jsonSchema); // Передаем валидные данные в родительский компонент
     } catch (error) {
-      this.setState({ value, isValid: false, jsonSchema: [] });
+      this.setState({ value: updatedValue, isValid: false, jsonSchema: [] });
       this.props.onJsonDataChange([]);
     }
   };
@@ -65,13 +99,18 @@ class JsonTextArea extends Component {
 
     return (
       <div>
-        <button
-          className="format-button"
-          disabled={!isValid}
-          onClick={this.handleFormat}
-        >
-          <span className="material-symbols-outlined">wrap_text</span>
-        </button>
+        <div className="json-text-area-menu">
+          <button disabled={!isValid} onClick={this.handleFormat} title="Форматировать отступы">
+            <span className="material-symbols-outlined">wrap_text</span>
+          </button>
+          <button onClick={this.handleRemoveTagsFromText} title="Очистить специфичные теги MongoDB">
+            <span className="material-symbols-outlined">checklist</span>
+          </button>
+          <button onClick={this.handleResetText} title="Очистить всё">
+            <span class="material-symbols-outlined">delete_forever</span>
+          </button>
+          {!isValid && <div className="error-message">JSON невалиден</div>}
+        </div>
         <div className="json-text-area">
           <div className="line-numbers">
             {lines.map((_, i) => (
@@ -97,9 +136,6 @@ class JsonTextArea extends Component {
             }}
           />
         </div>
-          {!isValid && (
-            <div className="error-message">JSON невалиден</div>
-          )}
       </div>
     );
   }

@@ -34,12 +34,8 @@ class Body extends Component {
 
     return (
       <div>
-        <div className="body-title">
-          {content}
-        </div>
         <div className="body-container">
           <div className="json-text-area-container">
-            <div className="json-text-area-menu">123</div>
             <JsonTextArea onJsonDataChange={this.handleJsonDataChange} />
           </div>
           <Slider />
